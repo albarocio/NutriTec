@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet" type="text/css" href="/stylesheets/index.css")
+    link(rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css")
+    link(rel="stylesheet" type="text/css" href="/stylesheets/sticky-footer.css")
+  body
+    .menu
+      include ./menu.jade
+    .content
+      article.letrero
+        p= letrero
+    .footer
+      include ./footer.jade
+    script(type="text/javascript" src="/javascripts/jquery-2.2.1.min.js")
+    script(type="text/javascript" src="/javascripts/bootstrap.min.js")
+    script(type='text/javascript').
