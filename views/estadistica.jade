@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title= title
+    link(rel="stylesheet" type="text/css" href="/stylesheets/index.css")
+    link(rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css")
+    link(rel="stylesheet" type="text/css" href="/stylesheets/sticky-footer.css")
+    script(type="text/javascript" src="https://www.google.com/jsapi")
+    script(type='text/javascript').
+      google.load('visualization', '1', {packages:['corechart']});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['IMC'  ,'Personas'],
+          ['Alta' ,#{value.alta}      ],
+          ['Media',#{value.media}      ],
+          ['Baja' ,#{value.baja}    ]
+        ]);
+        var options = {
+          title: 'Indices de masa corporal'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+  body
+    .menu
+      include ./menu.jade
+    .content
+      #chart_div(style="width: 900px; height: 500px;")
+    .footer
+      include ./footer.jade
+    script(type="text/javascript" src="/javascripts/jquery-2.2.1.min.js")
+    script(type="text/javascript" src="/javascripts/bootstrap.min.js")
