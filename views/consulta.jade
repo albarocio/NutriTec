@@ -11,7 +11,16 @@ html(lang="en")
       include ./menu.jade
     
     .content
-
+      h1= title
+      form.center(name="add-estimation", method="post")
+        div.input
+          span.label Title
+          input(type="text", name="Edad")
+        div.input
+          span.label Description
+          textarea(name="description", cols="40", rows="5")
+        div.actions
+          input(type="submit", value="add")
     .footer
       include ./footer.jade
     script(type="text/javascript" src="/javascripts/jquery-2.2.1.min.js")
