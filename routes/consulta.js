@@ -6,11 +6,11 @@ router.get('/salud', function(req, res, next) {
 });
 
 router.get('/registro', function(req, res, next) {
-  res.render('consulta', { title: 'Nutri-Tec' });
+  res.render('registro', { title: 'Nutri-Tec' });
 });
 
 router.get('/sesion', function(req, res, next) {
-  res.render('consulta', { title: 'Nutri-Tec' });
+  res.render('inicio-sesion', { title: 'Nutri-Tec' });
 });
 
 module.exports = router;

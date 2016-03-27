@@ -17,28 +17,18 @@ html(lang="en")
        .col-md-12
         .card
          .content-2
-          form(name="consultar",action="/consultar", method="get")
+          form(name="login",action="/inicio-sesion", method="post")
            .row
             .col-md-6
              .form-group
-              label Nombre
-              input.form-control(type="text")
+              label Correo electronico
+              input.form-control(type="email", required )
            .row
             .col-md-6
              .form-group
-              label Altura
-              input.form-control(type="text")
-           .row
-            .col-md-6
-             .form-group
-              label Peso
-              input.form-control(type="text")
-           .row
-            .col-md-6
-             .form-group
-              label Masa Corporal
-              input.form-control(type="text")
-           submit.btn.btn-success(type="submit") Consultar
+              label Contraseña
+              input.form-control(type="password" , required)
+           submit.btn.btn-success(type="submit") Iniciar Sesion  
            .clearfix
      
     .footer

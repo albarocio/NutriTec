@@ -17,7 +17,7 @@ html(lang="en")
        .col-md-12
         .card
          .content-2
-          form(name="consultar",action="/consultar", method="get")
+          form(name="registro",action="/registro", method="get")
            .row
             .col-md-6
              .form-group
@@ -26,19 +26,14 @@ html(lang="en")
            .row
             .col-md-6
              .form-group
-              label Altura
+              label Correo
               input.form-control(type="text")
            .row
             .col-md-6
              .form-group
-              label Peso
-              input.form-control(type="text")
-           .row
-            .col-md-6
-             .form-group
-              label Masa Corporal
-              input.form-control(type="text")
-           submit.btn.btn-success(type="submit") Consultar
+              label Contraseña
+              input.form-control(type="password")
+           button.btn.btn-success(type="button") Registrar  
            .clearfix
      
     .footer
