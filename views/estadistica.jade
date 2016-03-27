@@ -6,6 +6,7 @@ html(lang="en")
     link(rel="stylesheet" type="text/css" href="/stylesheets/index.css")
     link(rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css")
     link(rel="stylesheet" type="text/css" href="/stylesheets/sticky-footer.css")
+    link(rel="stylesheet" type="text/css" href="/stylesheets/extends_bootstrap/index.css")
     script(type="text/javascript" src="https://www.google.com/jsapi")
     script(type='text/javascript').
       google.load('visualization', '1', {packages:['corechart']});
@@ -28,8 +29,12 @@ html(lang="en")
   body
     .menu
       include ./menu.jade
-    .content
-      #chart_div(style="width: 900px; height: 500px;")
+    .content-2
+     .container-fluid
+      .row
+       .col-md-12
+         .content-2
+          #chart_div.card(style="width: 900px; height: 500px;")
     .footer
       include ./footer.jade
     script(type="text/javascript" src="/javascripts/jquery-2.2.1.min.js")
