@@ -17,28 +17,23 @@ html(lang="en")
        .col-md-12
         .card
          .content-2
-          form(name="consultar",action="/consultar", method="get")
-           .row
-            .col-md-12
-             .form-group
-              label Nombre
-              input.form-control(type="text")
+          form(name="consultar",action="/consulta/salud", method="get")
            .row
             .col-md-12
              .form-group
               label Altura
-              input.form-control(type="text")
+              input#idAltura.form-control(type="text", name="idAltura", value=altura)
            .row
             .col-md-12
              .form-group
               label Peso
-              input.form-control(type="text")
+              input#idPeso.form-control(type="text", name="idPeso" value=peso)
            .row
             .col-md-12
              .form-group
               label Masa Corporal
-              input.form-control(type="text")
-           submit.btn.btn-success(type="submit") Consultar
+              input.form-control(type="text" value=masa)
+           input.btn.btn-success(type="submit")
            .clearfix
      
     .footer
