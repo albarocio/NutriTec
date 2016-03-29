@@ -17,18 +17,18 @@ html(lang="en")
        .col-md-12
         .card
          .content-2
-          form(name="login",action="/inicio-sesion", method="post")
+          form(name="login",action="/inicio-sesion", method="get")
            .row
             .col-md-12
              .form-group
               label Correo electronico
-              input.form-control(type="email", required )
+              input#idEmail.form-control(type="email", name="idEmail", value=email ,required )
            .row
             .col-md-12
              .form-group
               label Contraseña
-              input.form-control(type="password" , required)
-           submit.btn.btn-success(type="submit") Iniciar Sesion  
+              input#idPassword.form-control(type="password" ,name="idPassword", required)
+           input.btn.btn-success(type="submit",value="Iniciar")  
            .clearfix
      
     .footer

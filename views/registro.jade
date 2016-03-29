@@ -22,18 +22,18 @@ html(lang="en")
             .col-md-12
              .form-group
               label Nombre
-              input.form-control(type="text")
+              input#idNombre.form-control(type="text", name="idNombre", value=nombre,required)
            .row
             .col-md-12
              .form-group
               label Correo
-              input.form-control(type="text")
+              input#idCorreo.form-control(type="email",name="idCorreo", value=correo,required)
            .row
             .col-md-12
              .form-group
               label Contraseña
-              input.form-control(type="password")
-           button.btn.btn-success(type="button") Registrar  
+              input#idPassword.form-control(type="password",name="idPassword", value=password,required)
+           input.btn.btn-success(type="submit",value="Registrar")
            .clearfix
      
     .footer
