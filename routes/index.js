@@ -10,14 +10,12 @@ var VISION='Ser la mejor empresa de nutrición convirtiéndonos en el número 1 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  db.getPersonas()
   res.render('index', 
   	{ 
   		title: TITLE,
   		letrero: TITLE 
   	});
 });
-
 
 router.get('/inicio', function(req, res, next) {
   res.render('index', 
@@ -42,6 +40,5 @@ router.get('/vision', function(req, res, next) {
   		letrero: VISION
   	});
 });
-
 
 module.exports = router;
