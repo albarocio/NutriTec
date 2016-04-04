@@ -1,5 +1,4 @@
-var sql=require('mssql')
-
+var mssql=require('mssql')
 
 var CONFIG = {
     user: 'softcake@vhxevvkl91',
@@ -11,19 +10,42 @@ var CONFIG = {
         encrypt: true // Use this if you're on Windows Azure 
     }
 }
-function getPersonas() {
-	sql.connect(CONFIG).then(function() {
-		new sql.Request()
-		.query('select * from persona')
+
+/*Create, Read, Update and Delete*/
+
+function createPersonaDetalle(persona_detalle) {
+	// body...
+	var query ='insert into persona_detalle(altura,peso,edad,IMC)'+
+	' values('+persona_detalle.altura+','+persona_detalle.peso+','+persona_detalle.edad+','+persona_detalle.IMC+');';
+	var scopeId=getScopeIdFromInsert(query)	
+	return scopeId
+}
+function createPersona(persona){
+	var query ='insert into persona_detalle(altura,peso,edad,IMC) values(0,0,0,0);'+
+				'insert into persona(nombre,correo,clave,id_persona_detalle) '+ 
+				"values('"+persona.nombre+"','"+persona.correo+"','"+persona.password+"',SCOPE_IDENTITY());";
+	
+	var scopeId=getScopeIdFromInsert(query)
+	return scopeId;
+}
+
+
+function getScopeIdFromInsert(insertQuery) {
+	// body...
+	insertQuery+="SELECT SCOPE_IDENTITY() as scopeid;";
+	// console.log(insertQuery)
+
+	mssql.connect(CONFIG).then(function() {
+		new mssql.Request()
+		.query(insertQuery)
 		.then(function(recordset) {
-			console.dir(recordset);
+			// console.dir(recordset[0].scopeid);
+			return recordset[0].scopeid;
 		}).catch(function(err) {
 			console.log(err) 
 		});
-
 	}).catch(function(err) {
 		console.log(err);
 	});
 }
-
-module.exports ={getPersonas}
+module.exports ={createPersonaDetalle,createPersona}
