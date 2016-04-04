@@ -19,7 +19,7 @@ router.get('/salud', function(req, res, next) {
 		var idAltura=Number(query.idAltura)
 		var result=math.divide(idPeso,(idAltura*idAltura))
 
-		if(res.cookies.persona){
+		if(req.cookies.persona){
 			// Insertar el registro a la persona indicada
 		}else{
 			// Insertar el registro a persona_detalle sin una relacion de persona
