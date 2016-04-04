@@ -10,10 +10,18 @@ var VISION='Ser la mejor empresa de nutrición convirtiéndonos en el número 1 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
+  if(req.cookies.toggleSesionLabel=== undefined){
+    res.cookie('toggleSesionLabel','Iniciar Sesion', { maxAge: 900000, httpOnly: true });
+    res.cookie('toggleSesionLink','/user/inicio-sesion', { maxAge: 900000, httpOnly: true });
+  }
+
   res.render('index', 
   	{ 
   		title: TITLE,
-  		letrero: TITLE 
+  		letrero: TITLE,
+      toggleSesionLabel:req.cookies.toggleSesionLabel,
+      toggleSesionLink:req.cookies.toggleSesionLink
   	});
 });
 
@@ -21,7 +29,9 @@ router.get('/inicio', function(req, res, next) {
   res.render('index', 
   	{ 
   		title: TITLE,
-  		letrero: INICIO
+  		letrero: INICIO,
+      toggleSesionLabel:req.cookies.toggleSesionLabel,
+      toggleSesionLink:req.cookies.toggleSesionLink
   	});
 });
 
@@ -29,7 +39,9 @@ router.get('/mision', function(req, res, next) {
   res.render('index', 
   	{ 
   		title: TITLE,
-  		letrero: MISION
+  		letrero: MISION,
+      toggleSesionLabel:req.cookies.toggleSesionLabel,
+      toggleSesionLink:req.cookies.toggleSesionLink
   	});
 });
 
@@ -37,7 +49,9 @@ router.get('/vision', function(req, res, next) {
   res.render('index', 
   	{ 
   		title: TITLE,
-  		letrero: VISION
+  		letrero: VISION,
+      toggleSesionLabel:req.cookies.toggleSesionLabel,
+      toggleSesionLink:req.cookies.toggleSesionLink
   	});
 });
 

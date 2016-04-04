@@ -24,6 +24,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*
+Inicialize cookie to menu label
+ */
+// app.use(function (req, res, next) {
+//   if(req.cookies.toggleSesionLabel=== undefined){
+//     res.cookie('toggleSesionLabel','Iniciar Sesion', { maxAge: 900000, httpOnly: true });
+//     res.cookie('toggleSesionLink','user/inicio-sesion', { maxAge: 900000, httpOnly: true });
+//   }
+// })
+
 app.use('/', routes);
 app.use('/consulta', consulta);
 app.use('/estadistica',estadistica)

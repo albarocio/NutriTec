@@ -16,7 +16,9 @@ router.get('/', function(req, res, next) {
 	res.render('estadistica', 
 		{ 
 			title: TITLE,
-			value:json
+			value:json,
+	        toggleSesionLabel:req.cookies.toggleSesionLabel,
+	        toggleSesionLink:req.cookies.toggleSesionLink
 		});
 });
 

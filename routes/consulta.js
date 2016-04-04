@@ -6,9 +6,11 @@ var math = require('mathjs')
 var router = express.Router();
 
 var TITLE='Nutri-Tec'
+var label='';
+var link='';
 
 router.get('/salud', function(req, res, next) {
-	
+	setLabels(req);
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 
@@ -30,13 +32,20 @@ router.get('/salud', function(req, res, next) {
   				title: TITLE,
   				masa:result, 
   				peso:idPeso, 
-  				altura:idAltura
+  				altura:idAltura,
+  				toggleSesionLabel:label,
+		        toggleSesionLink:link
   			});
 	}
-  	res.render('consulta', { title: TITLE });
+  	res.render('consulta', { title: TITLE ,
+  				toggleSesionLabel:label,
+		        toggleSesionLink:link});
 });
 function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
-
+function setLabels(req){
+	label=req.cookies.toggleSesionLabel;
+	link=req.cookies.toggleSesionLink;
+}
 module.exports = router;

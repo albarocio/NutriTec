@@ -12,7 +12,6 @@ var CONFIG = {
 }
 
 /*Create, Read, Update and Delete*/
-
 function createPersonaDetalle(persona_detalle) {
 	// body...
 	var query ='insert into persona_detalle(altura,peso,edad,IMC)'+
@@ -23,15 +22,22 @@ function createPersonaDetalle(persona_detalle) {
 function createPersona(persona){
 	var query ='insert into persona_detalle(altura,peso,edad,IMC) values(0,0,0,0);'+
 				'insert into persona(nombre,correo,clave,id_persona_detalle) '+ 
-				"values('"+persona.nombre+"','"+persona.correo+"','"+persona.password+"',SCOPE_IDENTITY());";
+				"values('"+persona.name+"','"+persona.mail+"','"+persona.password+"',SCOPE_IDENTITY());";
 	
 	var scopeId=getScopeIdFromInsert(query)
 	return scopeId;
 }
 
+function loginValido(credencial){
+	var query ="select * from persona where correo='"+credencial.mail
+	+"' and clave='"+credencial.password+"'" 
+				
+	var scopeId=getRecordSetFromQuery(query)
+	return scopeId;
+}
+
 
 function getScopeIdFromInsert(insertQuery) {
-	// body...
 	insertQuery+="SELECT SCOPE_IDENTITY() as scopeid;";
 	// console.log(insertQuery)
 
@@ -48,4 +54,18 @@ function getScopeIdFromInsert(insertQuery) {
 		console.log(err);
 	});
 }
-module.exports ={createPersonaDetalle,createPersona}
+function getRecordSetFromQuery(readQuery) {
+	console.log(readQuery)
+	mssql.connect(CONFIG).then(function() {
+		new mssql.Request()
+		.query(readQuery)
+		.then(function(recordset) {
+			return recordset[0];
+		}).catch(function(err) {
+			console.log(err) 
+		});
+	}).catch(function(err) {
+		console.log(err);
+	});
+}
+module.exports ={createPersonaDetalle,createPersona, loginValido}
