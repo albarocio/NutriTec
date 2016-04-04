@@ -22,12 +22,19 @@ html(lang="en")
             .col-md-12
              .form-group
               label Altura
-              input#idAltura.form-control(type="text", name="idAltura", value=altura,required)
+              - if (typeof(altura) !== 'undefined' && altura>0){
+                input#idAltura.form-control(type="text", name="idAltura", value=altura,required)
+              -}else{
+                input#idAltura.form-control(type="text", name="idAltura",required)
+              -}
            .row
             .col-md-12
              .form-group
               label Peso
-              input#idPeso.form-control(type="text", name="idPeso" value=peso,required)
+              if peso>0
+                input#idPeso.form-control(type="text", name="idPeso" value=peso,required)
+              else
+                input#idPeso.form-control(type="text", name="idPeso",required)
            .row
             .col-md-12
              .form-group
