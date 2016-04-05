@@ -1,5 +1,6 @@
 var mssql=require('mssql')
 
+
 var CONFIG = {
     user: 'softcake@vhxevvkl91',
     password: 'nutritec@m1',
@@ -19,23 +20,6 @@ function createPersonaDetalle(persona_detalle) {
 	var scopeId=getScopeIdFromInsert(query)	
 	return scopeId
 }
-function createPersona(persona){
-	var query ='insert into persona_detalle(altura,peso,edad,IMC) values(0,0,0,0);'+
-				'insert into persona(nombre,correo,clave,id_persona_detalle) '+ 
-				"values('"+persona.name+"','"+persona.mail+"','"+persona.password+"',SCOPE_IDENTITY());";
-	
-	var scopeId=getScopeIdFromInsert(query)
-	return scopeId;
-}
-
-function loginValido(credencial){
-	var query ="select * from persona where correo='"+credencial.mail
-	+"' and clave='"+credencial.password+"'" 
-				
-	var scopeId=getRecordSetFromQuery(query)
-	return scopeId;
-}
-
 
 function getScopeIdFromInsert(insertQuery) {
 	insertQuery+="SELECT SCOPE_IDENTITY() as scopeid;";
@@ -54,18 +38,38 @@ function getScopeIdFromInsert(insertQuery) {
 		console.log(err);
 	});
 }
-function getRecordSetFromQuery(readQuery) {
-	console.log(readQuery)
-	mssql.connect(CONFIG).then(function() {
-		new mssql.Request()
-		.query(readQuery)
-		.then(function(recordset) {
-			return recordset[0];
-		}).catch(function(err) {
-			console.log(err) 
-		});
-	}).catch(function(err) {
-		console.log(err);
+function registerPersona(persona, cb) {
+	var query ='insert into persona_detalle(altura,peso,edad,IMC) values(0,0,0,0);'
+	query+='insert into persona(nombre,correo,clave,id_persona_detalle) '
+		+"values('"+persona.name+"','"+persona.mail+"','"+persona.password+"',SCOPE_IDENTITY());";
+	query+="select top 1 * from persona where correo='"+persona.mail
+		+"' and clave='"+persona.password+"' and id_persona=SCOPE_IDENTITY();";		
+
+	var connection = new mssql.Connection(CONFIG, function(err) {
+		if (typeof err !== "undefined" && err !== null) {
+	    	cb( err );
+	        return
+	    }
+	    var request = new mssql.Request(connection); // or: var request = connection.request();
+		request.query(query, function(err, recordset) {
+    		cb( err, recordset );
+    	});
 	});
 }
-module.exports ={createPersonaDetalle,createPersona, loginValido}
+function loginPersona(credencial, cb) {
+	var query ="select top 1 * from persona where correo='"+credencial.mail
+	+"' and clave='"+credencial.password+"'" 
+				
+	var connection = new mssql.Connection(CONFIG, function(err) {
+		if (typeof err !== "undefined" && err !== null) {
+	    	cb( err );
+	        return
+	    }
+	    var request = new mssql.Request(connection); // or: var request = connection.request();
+		request.query(query, function(err, recordset) {
+    		cb( err, recordset );
+    	});
+	});
+}
+
+module.exports ={createPersonaDetalle,registerPersona,loginPersona}
