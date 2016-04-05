@@ -71,5 +71,47 @@ function loginPersona(credencial, cb) {
     	});
 	});
 }
+function getPersona_detalle(id_persona_detalle,cb){
+	var query ="select top 1 * from persona_detalle where id_persona_detalle='"+id_persona_detalle+"'" 
+	console.log(query)
+	var connection = new mssql.Connection(CONFIG, function(err) {
+		if (typeof err !== "undefined" && err !== null) {
+	    	cb( err );
+	        return
+	    }
+	    var request = new mssql.Request(connection); // or: var request = connection.request();
+		request.query(query, function(err, recordset) {
+    		cb( err, recordset );
+    	});
+	});
+}
+function updatePersona_detalle(persona_detalle,cb) {
+	var query ="update persona_detalle"
+		+" set peso='"+persona_detalle.peso+"',"
+		+"altura='"+persona_detalle.altura+"',"
+		+"edad='"+persona_detalle.edad+"',"
+		+"IMC='"+persona_detalle.imc+"'"
+		+" where id_persona_detalle='"+persona_detalle.id_persona_detalle
+		+"';select * from persona_detalle where id_persona_detalle='"+persona_detalle.id_persona_detalle+"';" 
+		
+		console.log(query)
+	var connection = new mssql.Connection(CONFIG, function(err) {
+		if (typeof err !== "undefined" && err !== null) {
+	    	cb( err );
+	        return
+	    }
+	    var request = new mssql.Request(connection); // or: var request = connection.request();
+		request.query(query, function(err, recordset) {
+    		cb( err, recordset );
+    	});
+	});
+}
 
-module.exports ={createPersonaDetalle,registerPersona,loginPersona}
+module.exports =
+{
+	createPersonaDetalle,
+	registerPersona,
+	loginPersona,
+	getPersona_detalle,
+	updatePersona_detalle
+}

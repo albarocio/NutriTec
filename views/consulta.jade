@@ -31,10 +31,20 @@ html(lang="en")
             .col-md-12
              .form-group
               label Peso
-              if peso>0
+              -if (typeof(peso) !== 'undefined' && peso>0){
                 input#idPeso.form-control(type="text", name="idPeso" value=peso,required)
-              else
+              -}else{
                 input#idPeso.form-control(type="text", name="idPeso",required)
+              -}
+           .row
+            .col-md-12
+             .form-group
+              label Edad
+              -if (typeof(edad) !== 'undefined' && edad>0){
+                input#idPeso.form-control(type="text", name="idEdad" value=edad,required)
+              -}else{
+                input#idPeso.form-control(type="text", name="idEdad",required)
+              -}
            .row
             .col-md-12
              .form-group
