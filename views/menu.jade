@@ -15,4 +15,7 @@ nav.navbar-default
       li: a(href="/consulta/salud") Consulta tu salud
       li: a(href="/estadistica") Estadística
       li: a(href="/user/registro") Registro
-      li: a(href=toggleSesionLink)= toggleSesionLabel
+      -if(toggleSesionLabel)
+        li: a(href=toggleSesionLink)= toggleSesionLabel
+      -else
+        li: a(href="/user/inicio-sesion") Iniciar Sesion

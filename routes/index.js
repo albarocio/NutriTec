@@ -11,11 +11,6 @@ var VISION='Ser la mejor empresa de nutrición convirtiéndonos en el número 1 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  if(req.cookies.toggleSesionLabel=== undefined){
-    res.cookie('toggleSesionLabel','Iniciar Sesion', { maxAge: 900000, httpOnly: true });
-    res.cookie('toggleSesionLink','/user/inicio-sesion', { maxAge: 900000, httpOnly: true });
-  }
-
   res.render('index', 
   	{ 
   		title: TITLE,
