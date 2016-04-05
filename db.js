@@ -106,6 +106,19 @@ function updatePersona_detalle(persona_detalle,cb) {
     	});
 	});
 }
+function getArticulo(id_recomendacion,cb) {
+	var query ="select * from recomendacion where id_recomendacion='"+id_recomendacion+"'"; 
+	var connection = new mssql.Connection(CONFIG, function(err) {
+		if (typeof err !== "undefined" && err !== null) {
+	    	cb( err );
+	        return
+	    }
+	    var request = new mssql.Request(connection); // or: var request = connection.request();
+		request.query(query, function(err, recordset) {
+    		cb( err, recordset[0] );
+    	});
+	});
+}
 
 module.exports =
 {
@@ -113,5 +126,6 @@ module.exports =
 	registerPersona,
 	loginPersona,
 	getPersona_detalle,
-	updatePersona_detalle
+	updatePersona_detalle,
+	getArticulo
 }

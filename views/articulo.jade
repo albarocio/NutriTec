@@ -10,7 +10,10 @@ html(lang="en")
   body
     .menu
       include ./menu.jade
-
+    .content
+      p= articulo.titulo
+      p= articulo.descripcion
+      p= articulo.imagen
       
 .footer
       include ./footer.jade
