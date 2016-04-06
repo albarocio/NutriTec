@@ -27,14 +27,27 @@ router.get('/:id', function(req, res, next) {
 		if(articulo===undefined){
 			res.send('No se encontro ningun articulo')
 		}else{
-			res.render('articulo',{title:TITLE,articulo:articulo})
+			res.render('articulo',{title:TITLE,articulo:articulo[0]})
 		}
 	})
-	// res.render('articulo',{ title: TITLE})
 })
-router.get('/template',function (req,res,next) {
-	res.render('template')
+router.get('/template/:id',function (req,res,next) {
+	var id = req.params.id
+	console.log(id)
+
+	db.getArticulo(id, function(err, articulo) {
+		if (typeof err !== "undefined" && err !== null) {
+			res.status(500).send({
+				error: err
+			});
+			return;
+		}
+		console.dir(articulo)
+		if(articulo===undefined){
+			res.send('No se encontro ningun articulo')
+		}else{
+			res.render('template',{title:TITLE,articulo:articulo[0]})
+		}
+	})
 })
-
-
 module.exports = router;

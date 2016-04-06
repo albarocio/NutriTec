@@ -115,7 +115,7 @@ function getArticulo(id_recomendacion,cb) {
 	    }
 	    var request = new mssql.Request(connection); // or: var request = connection.request();
 		request.query(query, function(err, recordset) {
-    		cb( err, recordset[0] );
+    		cb( err, recordset );
     	});
 	});
 }
