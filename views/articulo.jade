@@ -10,11 +10,14 @@ html(lang="en")
   body
     .menu
       include ./menu.jade
-    .content
-      p= articulo.titulo
-      p= articulo.descripcion
-      p= articulo.imagen
-      
+
+    .content-2
+      .container-fluid
+        .list-group
+          .list-group-item
+            h4.list-group-item-heading=articulo.titulo
+            p.list-group-item-text=articulo.descripcion
+            a.list-group-item-text(href=articulo.imagen)=articulo.imagen
 .footer
       include ./footer.jade
     script(type="text/javascript" src="/javascripts/jquery-2.2.1.min.js")
