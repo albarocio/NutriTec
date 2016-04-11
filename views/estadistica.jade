@@ -14,10 +14,13 @@ html(lang="en")
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['IMC'  ,'Personas'],
-          ['Alta' ,#{value.alta}      ],
-          ['Media',#{value.media}      ],
-          ['Baja' ,#{value.baja}    ]
+          ['IMC'  ,'Personas'                    ],
+          ['Bajo' ,#{clasificacion.bajo}         ],
+          ['Normal',#{clasificacion.normal}      ],
+          ['Sobrepeso',#{clasificacion.sobrepeso}],
+          ['Grado 1',#{clasificacion.grado1}     ],
+          ['Grado 2',#{clasificacion.grado2}     ],
+          ['Grado 3',#{clasificacion.grado3}     ]
         ]);
         var options = {
           title: 'Indices de masa corporal'

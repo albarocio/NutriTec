@@ -10,7 +10,6 @@ html(lang="en")
   body
     .menu
       include ./menu.jade
-    
     .content-2
      .container-fluid
       .row
@@ -22,8 +21,8 @@ html(lang="en")
             .col-md-12
              .form-group
               label Altura
-              - if (typeof(altura) !== 'undefined' && altura>0){
-                input#idAltura.form-control(type="text", name="idAltura", value=altura,required)
+              - if (typeof(detalle.altura) !== 'undefined' && detalle.altura>0){
+                input#idAltura.form-control(type="text", name="idAltura", value=detalle.altura,required)
               -}else{
                 input#idAltura.form-control(type="text", name="idAltura",required)
               -}
@@ -31,8 +30,8 @@ html(lang="en")
             .col-md-12
              .form-group
               label Peso
-              -if (typeof(peso) !== 'undefined' && peso>0){
-                input#idPeso.form-control(type="text", name="idPeso" value=peso,required)
+              -if (typeof(detalle.peso) !== 'undefined' && detalle.peso>0){
+                input#idPeso.form-control(type="text", name="idPeso" value=detalle.peso,required)
               -}else{
                 input#idPeso.form-control(type="text", name="idPeso",required)
               -}
@@ -40,8 +39,8 @@ html(lang="en")
             .col-md-12
              .form-group
               label Edad
-              -if (typeof(edad) !== 'undefined' && edad>0){
-                input#idPeso.form-control(type="text", name="idEdad" value=edad,required)
+              -if (typeof(detalle.edad) !== 'undefined' && detalle.edad>0){
+                input#idPeso.form-control(type="text", name="idEdad" value=detalle.edad,required)
               -}else{
                 input#idPeso.form-control(type="text", name="idEdad",required)
               -}
@@ -49,10 +48,20 @@ html(lang="en")
             .col-md-12
              .form-group
               label Masa Corporal
-              input.form-control(type="text" value=masa)
+              input.form-control(type="text" value=detalle.IMC)
            input.btn.btn-success(type="submit")
            .clearfix
-     
+           -if (typeof(articulos) !== 'undefined'){
+            -each articulo in articulos
+             .row
+              .content-2
+               .container-fluid
+                .list-group
+                .list-group-item
+                 h4.list-group-item-heading=articulo.titulo
+                 p.list-group-item-text=articulo.descripcion
+                 a.list-group-item-text(target='_blank' href='/articulo/'+articulo.id_recomendacion) Ver mas...
+           -}
     .footer
       include ./footer.jade
     script(type="text/javascript" src="/javascripts/jquery-2.2.1.min.js")

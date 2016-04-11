@@ -8,6 +8,7 @@ var router = express.Router();
 
 var TITLE='Nutri-Tec'
 
+
 router.get('/salud', function(req, res, next) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
@@ -32,7 +33,7 @@ router.get('/salud', function(req, res, next) {
 				id_persona_detalle:persona.id_persona_detalle,
 				peso:idPeso,
 				altura:idAltura,
-				imc:result,
+				IMC:result,
 				edad:idEdad
 			}
 
@@ -46,15 +47,25 @@ router.get('/salud', function(req, res, next) {
 				}
 				console.dir(persona_detalle)
 				var detalle=persona_detalle[0]
-				res.render('consulta', 
-	  			{ 
-	  				title: TITLE,
-	  				masa:detalle.IMC, 
-	  				peso:detalle.peso, 
-	  				altura:detalle.altura,
-	  				edad:detalle.edad,
-			        toggleSesionLabel:req.cookies.toggleSesionLabel,
-			        toggleSesionLink:req.cookies.toggleSesionLink
+				/*
+				Llamando a los articulos para sugerir
+				 */
+				db.getRecomendaciones(detalle, function(err, articulos) {
+					if (typeof err !== "undefined" && err !== null) {
+						res.status(500).send({
+							error: err
+						});
+						return;
+					}
+
+					res.render('consulta', 
+		  			{ 
+		  				title: TITLE,
+		  				detalle:detalle,
+		  				articulos:articulos,
+				        toggleSesionLabel:req.cookies.toggleSesionLabel,
+				        toggleSesionLink:req.cookies.toggleSesionLink
+		  			});
 	  			});
 			});
 		}else{
@@ -70,16 +81,26 @@ router.get('/salud', function(req, res, next) {
 					return;
 				}
 				var detalle=persona_detalle[0]
-				res.render('consulta', 
-	  			{ 
-	  				title: TITLE,
-	  				masa:detalle.IMC, 
-	  				peso:detalle.peso, 
-	  				altura:detalle.altura,
-	  				edad:detalle.edad,
-			        toggleSesionLabel:req.cookies.toggleSesionLabel,
-			        toggleSesionLink:req.cookies.toggleSesionLink
-	  			});
+
+				/*
+				Llamando a los articulos para sugerir
+				 */
+				db.getRecomendaciones(detalle, function(err, articulos) {
+					if (typeof err !== "undefined" && err !== null) {
+						res.status(500).send({
+							error: err
+						});
+						return;
+					}
+					res.render('consulta', 
+		  			{ 
+		  				title: TITLE,
+		  				detalle:detalle,
+		  				articulos:articulos,
+				        toggleSesionLabel:req.cookies.toggleSesionLabel,
+				        toggleSesionLink:req.cookies.toggleSesionLink
+		  			});
+				})
 			});
 		}
 	}else{
@@ -92,16 +113,45 @@ router.get('/salud', function(req, res, next) {
 			var result=math.divide(idPeso,(idAltura*idAltura))
 			var idEdad=query.idEdad
 
-	  		res.render('consulta', 
-	  			{ 
-	  				title: TITLE,
-	  				masa:result, 
-	  				peso:idPeso, 
-	  				altura:idAltura,
-	  				edad:idEdad,
-			        toggleSesionLabel:req.cookies.toggleSesionLabel,
-			        toggleSesionLink:req.cookies.toggleSesionLink
-	  			});
+			/*
+				Llamando a los articulos para sugerir
+				 */
+				
+			var detalle={
+				peso:idPeso,
+				altura:idAltura,
+				IMC:result,
+				edad:idEdad
+			}
+			db.createPersonaDetalle(detalle, function(err, insertAux) {
+				if (typeof err !== "undefined" && err !== null) {
+						res.status(500).send({
+							error: err
+						});
+						return;
+					}
+
+				console.log(insertAux)
+
+				db.getRecomendaciones(detalle, function(err, articulos) {
+					if (typeof err !== "undefined" && err !== null) {
+						res.status(500).send({
+							error: err
+						});
+						return;
+					}
+
+		  			res.render('consulta', 
+		  			{ 
+		  				title: TITLE,
+		  				detalle:detalle,
+			  			articulos:articulos,
+				        toggleSesionLabel:req.cookies.toggleSesionLabel,
+				        toggleSesionLink:req.cookies.toggleSesionLink
+		  			});
+			  	})
+
+			})
 		}else{
 			res.render('consulta', 
 			{ 
