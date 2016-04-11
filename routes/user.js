@@ -1,15 +1,23 @@
+/*
+Dependences
+ */
 var express = require('express');
 var url = require('url');
-var db=require('../db')
+var db=require('../database/db')
 
 var router = express.Router();
 
-/*Constantes*/
+/*
+Constants
+ */
 var TITLE='Nutri-Tec'
 var OPTIONS_COOKIE={ maxAge: 900000, httpOnly: true }
 
+/*
+Get methods
+ */
 router.get('/registro', function(req, res, next) {
-	// Obtener los valores de request si los hay
+
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 
@@ -34,7 +42,7 @@ router.get('/registro', function(req, res, next) {
 				        toggleSesionLink:req.cookies.toggleSesionLink 
 				    });
 			}else{
-				console.log(persona)
+
 				res.cookie('persona',persona, OPTIONS_COOKIE);
 				res.cookie('toggleSesionLabel','Cerrar Sesion', OPTIONS_COOKIE);
 		    	res.cookie('toggleSesionLink','/user/cerrar-sesion', OPTIONS_COOKIE);
@@ -78,8 +86,6 @@ router.get('/inicio-sesion', function(req, res, next) {
 			        toggleSesionLink:req.cookies.toggleSesionLink 
 			    });
 			}else{
-				// var persona=db.loginValido(persona)
-			  	//console.dir(persona)
 			  	res.cookie('persona',persona, OPTIONS_COOKIE);
 			  	res.cookie('toggleSesionLabel','Cerrar Sesion', OPTIONS_COOKIE);
 			    res.cookie('toggleSesionLink','/user/cerrar-sesion',OPTIONS_COOKIE)
@@ -101,7 +107,6 @@ router.get('/cerrar-sesion', function(req, res, next) {
 
     res.cookie('toggleSesionLabel','Iniciar Sesion', OPTIONS_COOKIE);
     res.cookie('toggleSesionLink','/user/inicio-sesion', OPTIONS_COOKIE);
-
 	res.redirect('/');
 });
 

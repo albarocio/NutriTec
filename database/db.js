@@ -1,18 +1,6 @@
 var mssql=require('mssql')
+var CONFIG =require('./config')
 
-
-var CONFIG = {
-    user: 'softcake@vhxevvkl91',
-    password: 'nutritec@m1',
-    server: 'vhxevvkl91.database.windows.net', // You can use 'localhost\\instance' to connect to named instance 
-    database: 'nutritec',
- 
-    options: {
-        encrypt: true // Use this if you're on Windows Azure 
-    }
-}
-
-/*Create, Read, Update and Delete*/
 function createPersonaDetalle(persona_detalle,cb) {
 	var query ='insert into persona_detalle(altura,peso,edad,IMC)'
 		+' values('+persona_detalle.altura+','+persona_detalle.peso+','
@@ -23,7 +11,7 @@ function createPersonaDetalle(persona_detalle,cb) {
 	    	cb( err );
 	        return
 	    }
-	    var request = new mssql.Request(connection); // or: var request = connection.request();
+	    var request = new mssql.Request(connection); 
 		request.query(query, function(err, recordset) {
     		cb( err, recordset );
     	});
@@ -41,7 +29,7 @@ function registerPersona(persona, cb) {
 	    	cb( err );
 	        return
 	    }
-	    var request = new mssql.Request(connection); // or: var request = connection.request();
+	    var request = new mssql.Request(connection); 
 		request.query(query, function(err, recordset) {
     		cb( err, recordset );
     	});
@@ -56,7 +44,7 @@ function loginPersona(credencial, cb) {
 	    	cb( err );
 	        return
 	    }
-	    var request = new mssql.Request(connection); // or: var request = connection.request();
+	    var request = new mssql.Request(connection); 
 		request.query(query, function(err, recordset) {
     		cb( err, recordset );
     	});
@@ -64,13 +52,12 @@ function loginPersona(credencial, cb) {
 }
 function getPersona_detalle(id_persona_detalle,cb){
 	var query ="select top 1 * from persona_detalle where id_persona_detalle='"+id_persona_detalle+"'" 
-	console.log(query)
 	var connection = new mssql.Connection(CONFIG, function(err) {
 		if (typeof err !== "undefined" && err !== null) {
 	    	cb( err );
 	        return
 	    }
-	    var request = new mssql.Request(connection); // or: var request = connection.request();
+	    var request = new mssql.Request(connection); 
 		request.query(query, function(err, recordset) {
     		cb( err, recordset );
     	});
@@ -85,13 +72,12 @@ function updatePersona_detalle(persona_detalle,cb) {
 		+" where id_persona_detalle='"+persona_detalle.id_persona_detalle
 		+"';select * from persona_detalle where id_persona_detalle='"+persona_detalle.id_persona_detalle+"';" 
 		
-		console.log(query)
 	var connection = new mssql.Connection(CONFIG, function(err) {
 		if (typeof err !== "undefined" && err !== null) {
 	    	cb( err );
 	        return
 	    }
-	    var request = new mssql.Request(connection); // or: var request = connection.request();
+	    var request = new mssql.Request(connection); 
 		request.query(query, function(err, recordset) {
     		cb( err, recordset );
     	});
@@ -104,7 +90,7 @@ function getArticulo(id_recomendacion,cb) {
 	    	cb( err );
 	        return
 	    }
-	    var request = new mssql.Request(connection); // or: var request = connection.request();
+	    var request = new mssql.Request(connection); 
 		request.query(query, function(err, recordset) {
     		cb( err, recordset );
     	});
@@ -139,7 +125,7 @@ function getRecomendaciones(detalle, cb) {
 	    	cb( err );
 	        return
 	    }
-	    var request = new mssql.Request(connection); // or: var request = connection.request();
+	    var request = new mssql.Request(connection); 
 		request.query(query, function(err, recordset) {
     		cb( err, recordset );
     	});
@@ -159,7 +145,7 @@ function getEstadistica(detalle, cb) {
 	    	cb( err );
 	        return
 	    }
-	    var request = new mssql.Request(connection); // or: var request = connection.request();
+	    var request = new mssql.Request(connection); 
 		request.query(query, function(err, recordset) {
     		cb( err, recordset );
     	});
@@ -168,12 +154,6 @@ function getEstadistica(detalle, cb) {
 
 module.exports =
 {
-	createPersonaDetalle,
-	registerPersona,
-	loginPersona,
-	getPersona_detalle,
-	updatePersona_detalle,
-	getArticulo,
-	getRecomendaciones,
-	getEstadistica
+	createPersonaDetalle, registerPersona, loginPersona, getPersona_detalle,
+	updatePersona_detalle,getArticulo, getRecomendaciones, getEstadistica
 }

@@ -2,12 +2,18 @@
 Dependencias
 */
 var express = require('express');
-var db=require('../db')
+var db=require('../database/db')
+
 var router = express.Router();
 
-/*Constantes*/
+/*
+Constants
+ */
 var TITLE='Nutri-Tec'
 
+/*
+Get methods
+ */
 router.get('/', function(req, res, next) {
 	db.getEstadistica('null', function(err, cla) {
 		if (typeof err !== "undefined" && err !== null) {

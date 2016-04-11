@@ -1,8 +1,14 @@
+/*
+Dependences
+ */
 var express = require('express');
-var router = express.Router();
-var db=require('../db')
+var db=require('../database/db')
 
-/*Constantes*/
+var router = express.Router();
+
+/*
+Constants
+ */
 var TITLE='Nutri-Tec'
 var INICIO='Somos una compañía independiente  que  inicia en esta rama de la salud como motivación propia para combatir los problemas nutricionales que existen no solo en nuestro entorno sino a nivel mundial.' 
 var MISION='Implementar nuestro sistema inteligente que otorga información de la salud nutricional a cada persona y lanzar resultados personales y estadísticos.' 
@@ -20,6 +26,9 @@ router.get('/', function(req, res, next) {
   	});
 });
 
+/*
+Get methods
+ */
 router.get('/inicio', function(req, res, next) {
   res.render('index', 
   	{ 

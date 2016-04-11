@@ -1,20 +1,26 @@
+/*
+Dependences
+ */
 var express = require('express');
 var url = require('url');
 var math = require('mathjs')
-var db=require('../db')
-
+var db=require('../database/db')
 
 var router = express.Router();
 
+/*
+Constants
+ */
 var TITLE='Nutri-Tec'
 
-
+/*
+Get methods
+ */
 router.get('/salud', function(req, res, next) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 
 	if(req.cookies.persona!==undefined){
-		 console.log('persona cookie exist')
 		var persona=req.cookies.persona[0];
 
 		if(isNumeric(query.idPeso) &&
@@ -38,14 +44,12 @@ router.get('/salud', function(req, res, next) {
 			}
 
 			db.updatePersona_detalle(detalle, function(err, persona_detalle) {
-				console.log('Update')
 				if (typeof err !== "undefined" && err !== null) {
 					res.status(500).send({
 						error: err
 					});
 					return;
 				}
-				console.dir(persona_detalle)
 				var detalle=persona_detalle[0]
 				/*
 				Llamando a los articulos para sugerir
@@ -73,7 +77,6 @@ router.get('/salud', function(req, res, next) {
 			Select persona_detalle y setear los inputs
 			 */
 			db.getPersona_detalle(persona.id_persona_detalle, function(err, persona_detalle) {
-				console.log('obtener persona detalle')
 				if (typeof err !== "undefined" && err !== null) {
 					res.status(500).send({
 						error: err
@@ -130,9 +133,8 @@ router.get('/salud', function(req, res, next) {
 						});
 						return;
 					}
-
-				console.log(insertAux)
-
+					//Console log necessary to active callBack()
+					console.dir(insertAux)
 				db.getRecomendaciones(detalle, function(err, articulos) {
 					if (typeof err !== "undefined" && err !== null) {
 						res.status(500).send({
