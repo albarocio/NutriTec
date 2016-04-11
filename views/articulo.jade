@@ -16,8 +16,8 @@ html(lang="en")
         .list-group
           .list-group-item
             h4.list-group-item-heading=articulo.titulo
+            img(src='/images/'+articulo.imagen)
             p.list-group-item-text=articulo.descripcion
-            a.list-group-item-text(href=articulo.imagen)=articulo.imagen
 .footer
       include ./footer.jade
     script(type="text/javascript" src="/javascripts/jquery-2.2.1.min.js")
