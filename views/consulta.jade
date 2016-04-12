@@ -21,7 +21,7 @@ html(lang="en")
             .col-md-12
              .form-group
               label Altura
-              - if (typeof(detalle.altura) !== 'undefined' && detalle.altura>0){
+              - if (typeof(detalle) !== 'undefined' && detalle.altura>0){
                 input#idAltura.form-control(type="text", name="idAltura", value=detalle.altura,required)
               -}else{
                 input#idAltura.form-control(type="text", name="idAltura",required)
@@ -30,7 +30,7 @@ html(lang="en")
             .col-md-12
              .form-group
               label Peso
-              -if (typeof(detalle.peso) !== 'undefined' && detalle.peso>0){
+              -if (typeof(detalle) !== 'undefined' && detalle.peso>0){
                 input#idPeso.form-control(type="text", name="idPeso" value=detalle.peso,required)
               -}else{
                 input#idPeso.form-control(type="text", name="idPeso",required)
@@ -39,16 +39,18 @@ html(lang="en")
             .col-md-12
              .form-group
               label Edad
-              -if (typeof(detalle.edad) !== 'undefined' && detalle.edad>0){
+              -if (typeof(detalle) !== 'undefined' && detalle.edad>0){
                 input#idPeso.form-control(type="text", name="idEdad" value=detalle.edad,required)
               -}else{
                 input#idPeso.form-control(type="text", name="idEdad",required)
               -}
+           -if (typeof(detalle) !== 'undefined' && detalle.IMC>0){
            .row
             .col-md-12
              .form-group
               label Masa Corporal
               input.form-control(type="text" value=detalle.IMC)
+           -}
            input.btn.btn-success(type="submit")
            .clearfix
            -if (typeof(articulos) !== 'undefined'){

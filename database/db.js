@@ -4,7 +4,7 @@ var CONFIG =require('./config')
 function createPersonaDetalle(persona_detalle,cb) {
 	var query ='insert into persona_detalle(altura,peso,edad,IMC)'
 		+' values('+persona_detalle.altura+','+persona_detalle.peso+','
-		+persona_detalle.edad+','+persona_detalle.imc+');';
+		+persona_detalle.edad+','+persona_detalle.IMC+');';
 
 	var connection = new mssql.Connection(CONFIG, function(err) {
 		if (typeof err !== "undefined" && err !== null) {
@@ -120,6 +120,8 @@ function getRecomendaciones(detalle, cb) {
 	inner join recomendacion rec
 	on rec.id_recomendacion=a.id_recomendacion
 	order by NEWID()`
+	console.log(query)
+
 	var connection = new mssql.Connection(CONFIG, function(err) {
 		if (typeof err !== "undefined" && err !== null) {
 	    	cb( err );
